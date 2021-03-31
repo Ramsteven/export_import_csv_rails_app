@@ -1,0 +1,49 @@
+<div>
+<div>
+  <div class="container text-center">
+    <h1>Employees</h1>
+
+    <div class="d-flex justify-content-around align-items-center">
+      <%= link_to 'Export CSV', employees_export_csv_path(format: :csv), class: "btn btn-sm btn-info" %><br>
+      <div class="text-justify">
+        <h4>Import File</h4>
+      <hr>
+      <%= form_tag employees_import_path, multipart: true do %>
+        <%= file_field_tag :file, class: "btn btn-sm btn-warning" %>
+        <%= submit_tag "Import", class: "btn btn-sm btn-success" %>
+      <% end %>
+      </div>
+    </div>
+    <hr>
+    <% if @employees.present? %>
+      <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Telefono</th>
+                <th scope= col> Email </th>
+                <th scope= col> Cargo</th>
+                <th scope="col">Salario</th>
+                <th scope= col> Departamento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employees.each do |employee| %>
+                <tr>
+                  <th scope="row"><%= employee.id %></th>
+                  <td><%= employee.nombres %></td>
+                  <td><%= employee.apellidos %></td>
+                  <td><%=  number_to_phone(employee.telefono, pattern: /(\d{1,4})(\d{4})(\d{4})$/, area_code: true) %></td>
+                  <td><%= employee.email %></td>
+                  <td><%= employee.cargo %></td>
+                  <td><%= number_to_currency(employee.salario) %></td>
+                  <td><%= employee.departamento %></td>
+                </tr>
+              <% end %>
+            </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

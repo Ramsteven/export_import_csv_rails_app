@@ -1,0 +1,69 @@
+<div class="container">
+<% if @employee.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+    <ul>
+      <% @employee.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Agregar Empleado</h1>
+<p>Completa el siguiente formulario para agregar un usuario</p>
+<div class="container">
+  <%= form_with model: @employee do |f| %>
+  
+    <div class="d-flex justify-content-between">
+      <div class="div">
+        <div>    <%= f.label :nombres, "Nombres" %>
+          <%= f.text_field :nombres%>
+        </div>
+      </div>
+
+      <div class="div">
+        <div>    <%= f.label :apellidos, "Apellidos" %>
+          <%= f.text_field :apellidos%>
+        </div>
+      </div>
+
+      <div class="div">
+        <div>    <%= f.label :telefono, "telfono" %>
+          <%= f.telephone_field :telefono%>
+        </div>
+      </div>
+    </div> 
+    <div class="d-flex">
+      <div class="div mr-4">
+        <div>    <%= f.label :email, "email" %>
+          <%= f.text_field :email%>
+        </div>
+      </div>
+
+      <div class="div">
+        <div>    <%= f.label :cargo, "cargo" %>
+          <%= f.text_field :cargo%>
+        </div>
+      </div>
+    </div>
+
+    <div class="div">
+      <div>    <%= f.label :salario, "Salario" %>
+        <%= f.number_field :salario%>
+      </div>
+    </div>
+
+    <div class="div">
+      <div>    
+        <%= f.label :departamento, "Departamento" %>
+        <%= f.select :departamento, ["",'Contabilidad','Finanzas','Operaciones', 'Seguridad y Recursos Humanos'] %>
+      </div>
+    </div>
+
+    
+    <%= f.submit "Guardar" %>
+  <% end %>
+</div>
+
